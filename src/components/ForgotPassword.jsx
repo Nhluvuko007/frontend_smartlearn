@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import { authService } from '../services/api'; // Import your central service layer
+import { useNavigate } from 'react-router-dom';
 
 export default function ForgotPassword() {
+  const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
@@ -14,11 +16,11 @@ export default function ForgotPassword() {
     setError('');
 
     try {
-      // Remember, our API base configuration has the /api prefix built-in!
-      const response = await axios.post('https://backend-smartlearn.onrender.com/api/auth/forgot-password', { email });
-      setMessage(response.data.message);
+      // Use the unified authService function we added to api.js
+      const data = await authService.forgotPassword(email);
+      setMessage(data.message);
     } catch (err) {
-      setError(err.response?.data?.message || 'Something went wrong. Please try again.');
+      setError(err.message || 'Something went wrong. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -26,6 +28,14 @@ export default function ForgotPassword() {
 
   return (
     <div style={{ maxWidth: '400px', margin: '50px auto', padding: '20px', fontFamily: 'sans-serif' }}>
+      <button 
+        type="button" 
+        onClick={() => navigate('/login')} 
+        style={{ background: 'none', border: 'none', color: '#007bff', cursor: 'pointer', padding: 0, marginBottom: '15px' }}
+      >
+        ← Back to Login
+      </button>
+
       <h2>Reset Your Password</h2>
       <p style={{ color: '#666' }}>Enter your email address and we'll send you a link to reset your password.</p>
       
@@ -40,10 +50,10 @@ export default function ForgotPassword() {
             required 
             value={email} 
             onChange={(e) => setEmail(e.target.value)}
-            style={{ width: '100%', padding: '10px', boxSizing: 'border-box' }}
+            style={{ width: '100%', padding: '10px', boxSizing: 'border-box', borderRadius: '6px', border: '1px solid #cbd5e1' }}
           />
         </div>
-        <button type="submit" disabled={loading} style={{ width: '100%', padding: '10px', background: '#007bff', color: '#fff', border: 'none', cursor: 'pointer' }}>
+        <button type="submit" disabled={loading} style={{ width: '100%', padding: '10px', background: '#007bff', color: '#fff', border: 'none', borderRadius: '6px', cursor: 'pointer' }}>
           {loading ? 'Processing...' : 'Send Recovery Link'}
         </button>
       </form>

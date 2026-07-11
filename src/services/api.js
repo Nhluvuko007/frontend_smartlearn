@@ -41,6 +41,30 @@ export const authService = {
   logout: () => {
     localStorage.removeItem('smartlearn_token');
     localStorage.removeItem('smartlearn_user');
+  },
+
+  // 1. ADDED: Forgot Password Service
+  forgotPassword: async (email) => {
+    const response = await fetch(`${API_BASE_URL}/auth/forgot-password`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email }),
+    });
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.message || 'Failed to process request');
+    return data;
+  },
+
+  // 2. ADDED: Reset Password Service
+  resetPassword: async (token, password) => {
+    const response = await fetch(`${API_BASE_URL}/auth/reset-password/${token}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ password }),
+    });
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.message || 'Reset execution failed');
+    return data;
   }
 };
 
