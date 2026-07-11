@@ -223,7 +223,7 @@ function App() {
 
       {/* Supplementary Password Reset Tracks */}
       <Route path="/forgot-password" element={<ForgotPassword />} />
-      <Route path="/reset-password" element={<ResetPassword />} />
+      <Route path="/reset-password/:token" element={<ResetPassword />} />
 
       {/* Dashboard Homepage Route */}
       <Route path="/dashboard" element={
