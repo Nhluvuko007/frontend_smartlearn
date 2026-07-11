@@ -1,4 +1,4 @@
-const API_BASE_URL = 'https://backend-smartlearn.onrender.com';
+const API_BASE_URL = 'https://backend-smartlearn.onrender.com/api';
 
 // Helper function to dynamically generate authentication headers
 const getAuthHeaders = () => {
