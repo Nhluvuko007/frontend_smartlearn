@@ -237,12 +237,12 @@ function App() {
           <div className="container">
             <div className="header">
               <div>
-                <h1 style={{ margin: 0, color: '#1e3a8a' }}>🧠 SmartLearn</h1>
+                
                 <p style={{ margin: '4px 0 0 0', color: '#64748b' }}>Welcome back, <strong style={{ color: '#1e293b' }}>{user.username}</strong>!</p>
               </div>
               <div style={{ display: 'flex', gap: '12px' }}>
                 <button className="btn" onClick={() => setShowDeckModal(true)}>+ Create New Deck</button>
-                <button className="btn" style={{ background: '#e2e8f0', color: '#475569' }} onClick={handleLogout}>Logout →</button>
+                
               </div>
             </div>
 
