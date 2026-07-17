@@ -25,6 +25,9 @@ const Profile = () => {
     setMessage('Profile updated successfully!');
   };
 
+  const token = localStorage.getItem('smartlearn_token');
+  console.log("Current Token in LocalStorage:", token);
+
   return (
     <div className="profile-container">
       <h2>User Profile</h2>
