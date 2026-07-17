@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 const Navbar = ({ user, handleLogout }) => {
   return (
     <nav style={{ 
-      display: 'flex', justifyContent: 'center', alignItems: 'center', 
+      display: 'flex', justifyContent: 'space-between', alignItems: 'center', 
       padding: '1rem 2rem', background: '#fff', borderBottom: '1px solid #e2e8f0' 
     }}>
       <Link to="/dashboard" style={{ textDecoration: 'none', color: '#1e3a8a', fontWeight: 'bold', fontSize: '1.2rem' }}>
