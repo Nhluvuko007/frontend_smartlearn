@@ -25,7 +25,7 @@ const Profile = () => {
     setMessage('Profile updated successfully!');
   };
 
-  const token = localStorage.getItem('smartlearn_token');
+  const token = localStorage.getItem('token');
   const headers = { 
     'Authorization': `Bearer ${token}`,
     'Content-Type': 'application/json' 
