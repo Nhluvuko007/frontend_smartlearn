@@ -68,6 +68,28 @@ export const authService = {
   }
 };
 
+export const profileService = {
+  getProfile: async () => {
+    const response = await fetch(`${API_BASE_URL}/auth/profile`, {
+      method: 'GET',
+      headers: getAuthHeaders(),
+    });
+    if (!response.ok) throw new Error('Failed to fetch profile');
+    return response.json();
+  },
+
+  updateProfile: async (profileData) => {
+    const response = await fetch(`${API_BASE_URL}/auth/profile`, {
+      method: 'PATCH', 
+      headers: getAuthHeaders(),
+      body: JSON.stringify(profileData),
+    });
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.message || 'Failed to update profile');
+    return data;
+  }
+};
+
 export const deckService = {
   getAllDecks: async () => {
     const response = await fetch(`${API_BASE_URL}/decks`, {
