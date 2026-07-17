@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const Profile = () => {
   const [user, setUser] = useState({ username: '', email: '' });
   const [message, setMessage] = useState('');
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -40,22 +42,46 @@ const Profile = () => {
   };
 
   return (
-    <div className="profile-container">
-      <h2>User Profile</h2>
-      {message && <p>{message}</p>}
-      <form onSubmit={handleUpdate}>
-        <input 
-          value={user.username} 
-          onChange={(e) => setUser({...user, username: e.target.value})} 
-          placeholder="Username" 
-        />
-        <input 
-          value={user.email} 
-          onChange={(e) => setUser({...user, email: e.target.value})} 
-          placeholder="Email" 
-        />
-        <button type="submit">Update Profile</button>
-      </form>
+    <div className="container" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '80vh' }}>
+      <div className="profile-card">
+        <button className="btn" style={{ background: '#cbd5e1', marginBottom: '1rem' }} onClick={() => navigate('/dashboard')}>
+          ← Back to Dashboard
+        </button>
+        
+        <h2 style={{ color: '#1e3a8a', textAlign: 'center', marginBottom: '1.5rem' }}>User Profile</h2>
+        
+        {message && (
+          <div style={{ padding: '0.75rem', marginBottom: '1rem', background: '#dcfce7', color: '#166534', borderRadius: '6px', textAlign: 'center', fontSize: '0.9rem' }}>
+            {message}
+          </div>
+        )}
+
+        <form onSubmit={handleUpdate}>
+          <div style={{ marginBottom: '1rem' }}>
+            <label style={{ display: 'block', marginBottom: '0.4rem', fontWeight: 500 }}>Username</label>
+            <input 
+              type="text" 
+              className="profile-input"
+              value={user.username} 
+              onChange={(e) => setUser({...user, username: e.target.value})} 
+              required 
+            />
+          </div>
+          <div style={{ marginBottom: '1.5rem' }}>
+            <label style={{ display: 'block', marginBottom: '0.4rem', fontWeight: 500 }}>Email Address</label>
+            <input 
+              type="email" 
+              className="profile-input"
+              value={user.email} 
+              onChange={(e) => setUser({...user, email: e.target.value})} 
+              required 
+            />
+          </div>
+          <button type="submit" className="btn" style={{ width: '100%', padding: '0.75rem' }}>
+            Save Changes
+          </button>
+        </form>
+      </div>
     </div>
   );
 };
