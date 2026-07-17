@@ -3,6 +3,8 @@ import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 import { authService, deckService, cardService } from './services/api';
 import ForgotPassword from './components/ForgotPassword';
 import ResetPassword from './components/ResetPassword';
+import Profile from './components/Profile';
+import Navbar from './components/Navbar';
 
 function App() {
   const navigate = useNavigate();
@@ -162,6 +164,9 @@ function App() {
   };
 
   return (
+    <>
+      {user && <Navbar user={user} handleLogout={handleLogout} />}
+
     <Routes>
       {/* Fallback routing */}
       <Route path="/" element={<Navigate to={user ? "/dashboard" : "/login"} replace />} />
@@ -224,6 +229,7 @@ function App() {
       {/* Supplementary Password Reset Tracks */}
       <Route path="/forgot-password" element={<ForgotPassword />} />
       <Route path="/reset-password/:token" element={<ResetPassword />} />
+      <Route path="/profile" element={<Profile />} />
 
       {/* Dashboard Homepage Route */}
       <Route path="/dashboard" element={
@@ -389,6 +395,7 @@ function App() {
         ) : <Navigate to="/dashboard" replace />
       } />
     </Routes>
+    </>
   );
 }
 
