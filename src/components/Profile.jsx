@@ -26,7 +26,11 @@ const Profile = () => {
   };
 
   const token = localStorage.getItem('smartlearn_token');
-  console.log("Current Token in LocalStorage:", token);
+  const headers = { 
+    'Authorization': `Bearer ${token}`,
+    'Content-Type': 'application/json' 
+  };
+  console.log("Full Headers being sent:", headers);
 
   return (
     <div className="profile-container">
