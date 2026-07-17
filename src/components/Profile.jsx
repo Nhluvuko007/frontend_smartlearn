@@ -7,7 +7,7 @@ const Profile = () => {
 
   useEffect(() => {
     const fetchProfile = async () => {
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem('smartlearn_token');
       const response = await axios.get('https://backend-smartlearn.onrender.com/api/auth/profile', {
         headers: { Authorization: `Bearer ${token}` }
       });
@@ -18,14 +18,14 @@ const Profile = () => {
 
   const handleUpdate = async (e) => {
     e.preventDefault();
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('smartlearn_token');
     await axios.patch('https://backend-smartlearn.onrender.com/api/auth/profile', user, {
       headers: { Authorization: `Bearer ${token}` }
     });
     setMessage('Profile updated successfully!');
   };
 
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem('smartlearn_token');
   const headers = { 
     'Authorization': `Bearer ${token}`,
     'Content-Type': 'application/json' 
