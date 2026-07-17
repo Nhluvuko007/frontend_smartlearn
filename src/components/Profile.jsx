@@ -17,20 +17,27 @@ const Profile = () => {
   }, []);
 
   const handleUpdate = async (e) => {
-    e.preventDefault();
-    const token = localStorage.getItem('smartlearn_token');
-    await axios.patch('https://backend-smartlearn.onrender.com/api/auth/profile', user, {
+  e.preventDefault();
+  const token = localStorage.getItem('smartlearn_token');
+  
+  try {
+    // 1. Send the PATCH request
+    const response = await axios.patch('https://backend-smartlearn.onrender.com/api/auth/profile', user, {
       headers: { Authorization: `Bearer ${token}` }
     });
-    setMessage('Profile updated successfully!');
-  };
 
-  const token = localStorage.getItem('smartlearn_token');
-  const headers = { 
-    'Authorization': `Bearer ${token}`,
-    'Content-Type': 'application/json' 
+    // 2. Update the React state with the new data returned from the server
+    setUser(response.data); 
+
+    // 3. Optional: Update the 'smartlearn_user' in localStorage so it stays synced
+    localStorage.setItem('smartlearn_user', JSON.stringify(response.data));
+
+    setMessage('Profile updated successfully!');
+    } catch (error) {
+      setMessage('Failed to update profile.');
+      console.error(error);
+    }
   };
-  console.log("Full Headers being sent:", headers);
 
   return (
     <div className="profile-container">
